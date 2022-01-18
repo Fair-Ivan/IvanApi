@@ -1,0 +1,51 @@
+definitions:
+  Model.PageResult:
+    properties:
+      pageIndex:
+        type: integer
+      pageSize:
+        type: integer
+      result: {}
+      total:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /ops/getbroadcast:
+    get:
+      consumes:
+      - application/json
+      description: get users
+      parameters:
+      - description: 游戏Id
+        in: query
+        name: gameId
+        required: true
+        type: integer
+      - description: 游戏版本
+        in: query
+        name: gameVersion
+        required: true
+        type: string
+      - description: pageIndex
+        in: query
+        name: pageIndex
+        required: true
+        type: integer
+      - description: pageSize
+        in: query
+        name: pageSize
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Model.PageResult'
+      summary: 获取广播
+      tags:
+      - ops
+swagger: "2.0"
