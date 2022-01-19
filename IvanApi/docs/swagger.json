@@ -1,8 +1,12 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "IvanApi Service",
+        "title": "IvanApi Swagger",
+        "contact": {},
+        "version": "1.0"
     },
+    "basePath": "/api/v1",
     "paths": {
         "/ops/getbroadcast": {
             "get": {
@@ -18,6 +22,12 @@
                 ],
                 "summary": "获取广播",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header"
+                    },
                     {
                         "type": "integer",
                         "description": "游戏Id",
@@ -63,13 +73,18 @@
             "type": "object",
             "properties": {
                 "pageIndex": {
+                    "description": "页签",
                     "type": "integer"
                 },
                 "pageSize": {
+                    "description": "页码",
                     "type": "integer"
                 },
-                "result": {},
+                "result": {
+                    "description": "结果"
+                },
                 "total": {
+                    "description": "总条数",
                     "type": "integer"
                 }
             }

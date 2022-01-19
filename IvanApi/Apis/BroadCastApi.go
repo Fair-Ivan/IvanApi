@@ -16,6 +16,7 @@ import (
 // @Schemes
 // @Description get users
 // @Tags ops
+// @Param Authorization header string false "Bearer 用户令牌"
 // @Param gameId query int true "游戏Id"
 // @Param gameVersion query string true "游戏版本"
 // @Param pageIndex query int true "pageIndex"
@@ -24,8 +25,8 @@ import (
 // @Produce json
 // @Success 200 {object} Model.PageResult GetBroadCast
 // @Router /ops/getbroadcast [get]
-func GetBroadCastList(g *gin.Context)  {
-	connArgs := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", "用户名", "密码", "Ip", 3306, "数据库名")
+func GetBroadCastList(g *gin.Context) {
+	connArgs := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local", "root", "密码", "Ip", 3306, "数据库")
 	db, err := gorm.Open("mysql", connArgs)
 	if err != nil {
 		fmt.Println("%s", err.Error())
@@ -38,16 +39,16 @@ func GetBroadCastList(g *gin.Context)  {
 	var pageSize = g.Query("pageSize")
 	pagesize, _ := strconv.Atoi(pageSize)
 	pageindex, _ := strconv.Atoi(pageIndex)
-	skipNum := (pageindex-1) * pagesize
+	skipNum := (pageindex - 1) * pagesize
 	var total int
 	var broadcasts []Model.BroadCast
 	result := db.Where("game_id = ? And game_version = ?", gameId, gameVersion).Offset(skipNum).Limit(pagesize).Find(&broadcasts).Count(&total)
 	if result.Error == nil {
 		p := Model.PageResult{
-			Total:      total,
-			PageSize:   pagesize,
-			PageIndex:  pageindex,
-			Result: broadcasts,
+			Total:     total,
+			PageSize:  pagesize,
+			PageIndex: pageindex,
+			Result:    broadcasts,
 		}
 		g.JSON(http.StatusOK, p)
 	} else {
@@ -56,6 +57,6 @@ func GetBroadCastList(g *gin.Context)  {
 	}
 }
 
-func UpdateBroadCast(g *gin.Context){
+func UpdateBroadCast(g *gin.Context) {
 
 }

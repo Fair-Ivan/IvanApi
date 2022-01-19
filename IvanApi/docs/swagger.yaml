@@ -1,16 +1,24 @@
+basePath: /api/v1
 definitions:
   Model.PageResult:
     properties:
       pageIndex:
+        description: 页签
         type: integer
       pageSize:
+        description: 页码
         type: integer
-      result: {}
+      result:
+        description: 结果
       total:
+        description: 总条数
         type: integer
     type: object
 info:
   contact: {}
+  description: IvanApi Service
+  title: IvanApi Swagger
+  version: "1.0"
 paths:
   /ops/getbroadcast:
     get:
@@ -18,6 +26,10 @@ paths:
       - application/json
       description: get users
       parameters:
+      - description: Bearer 用户令牌
+        in: header
+        name: Authorization
+        type: string
       - description: 游戏Id
         in: query
         name: gameId

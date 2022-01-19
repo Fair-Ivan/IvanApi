@@ -38,6 +38,12 @@ var doc = `{
                 "summary": "获取广播",
                 "parameters": [
                     {
+                        "type": "string",
+                        "description": "Bearer 用户令牌",
+                        "name": "Authorization",
+                        "in": "header"
+                    },
+                    {
                         "type": "integer",
                         "description": "游戏Id",
                         "name": "gameId",
@@ -82,13 +88,18 @@ var doc = `{
             "type": "object",
             "properties": {
                 "pageIndex": {
+                    "description": "页签",
                     "type": "integer"
                 },
                 "pageSize": {
+                    "description": "页码",
                     "type": "integer"
                 },
-                "result": {},
+                "result": {
+                    "description": "结果"
+                },
                 "total": {
+                    "description": "总条数",
                     "type": "integer"
                 }
             }
@@ -107,12 +118,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "",
+	Version:     "1.0",
 	Host:        "",
-	BasePath:    "",
+	BasePath:    "/api/v1",
 	Schemes:     []string{},
-	Title:       "",
-	Description: "",
+	Title:       "IvanApi Swagger",
+	Description: "IvanApi Service",
 }
 
 type s struct{}
