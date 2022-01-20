@@ -8,17 +8,19 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func Router()  *gin.Engine{
+func Router() *gin.Engine {
 	r := gin.New()
 	docs.SwaggerInfo.BasePath = "/api/v1"
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	v1 := r.Group("/api/v1")
 	{
 		eg := v1.Group("/ops")
 		{
-			eg.GET("/getbroadcast",Apis.GetBroadCastList)
+			eg.PUT("/broadcast", Apis.UpdateBroadCast)
+			eg.GET("/getbroadcast", Apis.GetBroadCastList)
+			eg.POST("/broadcast", Apis.AddBroadCast)
+			eg.DELETE("/broadcast", Apis.RemoveBroadCast)
 		}
 	}
-
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r
 }

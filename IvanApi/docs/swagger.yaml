@@ -1,5 +1,28 @@
 basePath: /api/v1
 definitions:
+  Model.BroadCastUpdateInput:
+    properties:
+      broadcastPosition:
+        type: string
+      broadcastText:
+        type: string
+      channelId:
+        type: string
+      endTime:
+        type: string
+      gameId:
+        type: integer
+      gameVersion:
+        type: string
+      id:
+        type: integer
+      partnerId:
+        type: string
+      startTime:
+        type: string
+      worldId:
+        type: string
+    type: object
   Model.PageResult:
     properties:
       pageIndex:
@@ -14,22 +37,92 @@ definitions:
         description: 总条数
         type: integer
     type: object
+  Model.ResponseResult:
+    properties:
+      code:
+        description: 状态
+        type: integer
+      msg:
+        description: 消息
+        type: string
+      result:
+        description: 结果
+    type: object
 info:
   contact: {}
   description: IvanApi Service
   title: IvanApi Swagger
   version: "1.0"
 paths:
+  /ops/broadcast:
+    delete:
+      consumes:
+      - application/json
+      description: delete
+      parameters:
+      - description: Id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Model.ResponseResult'
+      summary: 删除
+      tags:
+      - ops
+    post:
+      consumes:
+      - application/json
+      description: update
+      parameters:
+      - description: 信息
+        in: body
+        name: broadInput
+        required: true
+        schema:
+          $ref: '#/definitions/Model.BroadCastUpdateInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Model.ResponseResult'
+      summary: 新增
+      tags:
+      - ops
+    put:
+      consumes:
+      - application/json
+      description: update
+      parameters:
+      - description: 入参
+        in: body
+        name: broadInput
+        required: true
+        schema:
+          $ref: '#/definitions/Model.BroadCastUpdateInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Model.ResponseResult'
+      summary: 修改
+      tags:
+      - ops
   /ops/getbroadcast:
     get:
       consumes:
       - application/json
       description: get users
       parameters:
-      - description: Bearer 用户令牌
-        in: header
-        name: Authorization
-        type: string
       - description: 游戏Id
         in: query
         name: gameId

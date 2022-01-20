@@ -23,6 +23,102 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/ops/broadcast": {
+            "put": {
+                "description": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ops"
+                ],
+                "summary": "修改",
+                "parameters": [
+                    {
+                        "description": "入参",
+                        "name": "broadInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Model.ResponseResult"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ops"
+                ],
+                "summary": "新增",
+                "parameters": [
+                    {
+                        "description": "信息",
+                        "name": "broadInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Model.ResponseResult"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ops"
+                ],
+                "summary": "删除",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Model.ResponseResult"
+                        }
+                    }
+                }
+            }
+        },
         "/ops/getbroadcast": {
             "get": {
                 "description": "get users",
@@ -37,12 +133,6 @@ var doc = `{
                 ],
                 "summary": "获取广播",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Bearer 用户令牌",
-                        "name": "Authorization",
-                        "in": "header"
-                    },
                     {
                         "type": "integer",
                         "description": "游戏Id",
@@ -84,6 +174,41 @@ var doc = `{
         }
     },
     "definitions": {
+        "Model.BroadCastUpdateInput": {
+            "type": "object",
+            "properties": {
+                "broadcastPosition": {
+                    "type": "string"
+                },
+                "broadcastText": {
+                    "type": "string"
+                },
+                "channelId": {
+                    "type": "string"
+                },
+                "endTime": {
+                    "type": "string"
+                },
+                "gameId": {
+                    "type": "integer"
+                },
+                "gameVersion": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "partnerId": {
+                    "type": "string"
+                },
+                "startTime": {
+                    "type": "string"
+                },
+                "worldId": {
+                    "type": "string"
+                }
+            }
+        },
         "Model.PageResult": {
             "type": "object",
             "properties": {
@@ -101,6 +226,22 @@ var doc = `{
                 "total": {
                     "description": "总条数",
                     "type": "integer"
+                }
+            }
+        },
+        "Model.ResponseResult": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "状态",
+                    "type": "integer"
+                },
+                "msg": {
+                    "description": "消息",
+                    "type": "string"
+                },
+                "result": {
+                    "description": "结果"
                 }
             }
         }

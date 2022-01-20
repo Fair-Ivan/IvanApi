@@ -1,6 +1,7 @@
 package main
 
 import (
+	"IvanApi/Commons"
 	"IvanApi/Router"
 )
 
@@ -11,5 +12,9 @@ import (
 // @query.collection.format multi
 func main() {
 	r := Router.Router()
+	err := Commons.InitConfigJson("app.json")
+	if err != nil {
+		panic(err)
+	}
 	r.Run(":8081")
 }
