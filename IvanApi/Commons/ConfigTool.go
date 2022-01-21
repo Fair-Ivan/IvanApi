@@ -8,7 +8,14 @@ import (
 )
 
 type ConfigJson struct {
-	ConnectionString string `json:"connectionString"`
+	ConnectionString string      `json:"connectionString"`
+	RedisConfig      RedisConfig `json:"redisConfig"`
+}
+
+type RedisConfig struct {
+	Host     string `json:"host"`
+	Password string `json:"password"`
+	Db       int    `json:"db"`
 }
 
 var (

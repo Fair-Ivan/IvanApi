@@ -16,5 +16,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	Commons.RedisInit()
 	r.Run(":8081")
 }

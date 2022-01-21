@@ -32,6 +32,11 @@ func GetBroadCastList(g *gin.Context) {
 		panic("连接数据库失败")
 	}
 	defer db.Close()
+	val, err := Commons.RedisClient.Get("123456").Result()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("key", val)
 	var gameId = g.Query("gameId")
 	var gameVersion = g.Query("gameVersion")
 	var pageIndex = g.Query("pageIndex")
