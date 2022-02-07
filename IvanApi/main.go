@@ -3,6 +3,7 @@ package main
 import (
 	"IvanApi/Commons"
 	"IvanApi/Router"
+	"runtime"
 )
 
 // @title IvanApi Swagger
@@ -11,6 +12,7 @@ import (
 // @BasePath /api/v1
 // @query.collection.format multi
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	r := Router.Router()
 	err := Commons.InitConfigJson("app.json")
 	if err != nil {

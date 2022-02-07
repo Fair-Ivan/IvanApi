@@ -73,7 +73,7 @@ func GetBroadCastList(g *gin.Context) {
 func UpdateBroadCast(g *gin.Context) {
 	var broadInput Model.BroadCastUpdateInput
 	if err := g.ShouldBind(&broadInput); err != nil {
-		g.JSON(http.StatusBadRequest, gin.H{"msg": err})
+		g.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
 	connArgs := Commons.GetConfigJson().ConnectionString
@@ -111,7 +111,30 @@ func AddBroadCast(g *gin.Context) {
 		g.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
-	g.JSON(200, broadInput)
+	connString := Commons.GetConfigJson().ConnectionString
+	db, err := gorm.Open("mysql", connString)
+	if err != nil {
+		fmt.Printf("#{err.Error()}\n")
+		panic("连接数据库失败")
+	}
+	defer db.Close()
+	var broadCast Model.BroadCast
+	broadCast.IsDeleted = 0
+	broadCast.BroadcastText = broadInput.BroadcastText
+	broadCast.BroadcastPosition = broadInput.BroadcastPosition
+	broadCast.ChannelId = broadInput.ChannelId
+	broadCast.EndTime = broadInput.EndTime
+	broadCast.StartTime = broadInput.StartTime
+	broadCast.GameId = broadInput.GameId
+	broadCast.PartnerId = broadInput.PartnerId
+	broadCast.GameVersion = broadInput.GameVersion
+	broadCast.WorldId = broadInput.WorldId
+	db.Table("broadcastinfo").Create(&broadCast)
+	var response Model.ResponseResult
+	response.Code = 0
+	response.Msg = "修改成功"
+	response.Result = true
+	g.JSON(200, response)
 }
 
 // @Summary 删除
