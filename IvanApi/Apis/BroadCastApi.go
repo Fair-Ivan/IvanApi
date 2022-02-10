@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"net/http"
 	"strconv"
@@ -25,13 +24,7 @@ import (
 // @Success 200 {object} Model.PageResult GetBroadCast
 // @Router /ops/getbroadcast [get]
 func GetBroadCastList(g *gin.Context) {
-	connArgs := Commons.GetConfigJson().ConnectionString
-	db, err := gorm.Open("mysql", connArgs)
-	if err != nil {
-		fmt.Println("%s", err.Error())
-		panic("连接数据库失败")
-	}
-	defer db.Close()
+	db := Commons.Getdb()
 	val, err := Commons.RedisClient.Get("123456").Result()
 	if err != nil {
 		panic(err)
@@ -73,16 +66,13 @@ func GetBroadCastList(g *gin.Context) {
 func UpdateBroadCast(g *gin.Context) {
 	var broadInput Model.BroadCastUpdateInput
 	if err := g.ShouldBind(&broadInput); err != nil {
-		g.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+		g.JSON(
+			http.StatusBadRequest,
+			gin.H{"msg": err.Error()},
+		)
 		return
 	}
-	connArgs := Commons.GetConfigJson().ConnectionString
-	db, err := gorm.Open("mysql", connArgs)
-	if err != nil {
-		fmt.Printf("%s\n", err.Error())
-		panic("连接数据库失败")
-	}
-	defer db.Close()
+	db := Commons.Getdb()
 	count := db.Table("broadcastinfo").Where("id = ?", broadInput.Id).Update(Model.BroadCast{
 		BroadcastText: broadInput.BroadcastText,
 	}).RowsAffected
@@ -111,13 +101,7 @@ func AddBroadCast(g *gin.Context) {
 		g.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
-	connString := Commons.GetConfigJson().ConnectionString
-	db, err := gorm.Open("mysql", connString)
-	if err != nil {
-		fmt.Printf("#{err.Error()}\n")
-		panic("连接数据库失败")
-	}
-	defer db.Close()
+	db := Commons.Getdb()
 	var broadCast Model.BroadCast
 	broadCast.IsDeleted = 0
 	broadCast.BroadcastText = broadInput.BroadcastText
@@ -149,18 +133,11 @@ func AddBroadCast(g *gin.Context) {
 func RemoveBroadCast(g *gin.Context) {
 	var deleteInput Model.BroadCastRemoveInput
 	if err := g.ShouldBind(&deleteInput); err != nil {
-		g.JSON(400, gin.H{"msg": err})
+		g.JSON(http.StatusOK, gin.H{"msg": err})
 		return
 	}
 	var response Model.ResponseResult
-	connArgs := Commons.GetConfigJson().ConnectionString
-	db, err := gorm.Open("mysql", connArgs)
-	if err != nil {
-		fmt.Printf("%s\n", err.Error())
-		panic("连接数据库失败")
-		g.JSON(400, gin.H{"msg": err})
-	}
-	defer db.Close()
+	db := Commons.Getdb()
 	count := db.Table("broadcastinfo").Where("id = ?", deleteInput.Id).Update(Model.BroadCast{
 		IsDeleted: 1,
 	}).RowsAffected

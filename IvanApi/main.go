@@ -19,5 +19,6 @@ func main() {
 		panic(err)
 	}
 	Commons.RedisInit()
+	Commons.GormInit()
 	r.Run(":8081")
 }
