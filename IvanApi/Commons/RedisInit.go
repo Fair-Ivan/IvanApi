@@ -9,11 +9,11 @@ var RedisClient *redis.Client
 
 func RedisInit() {
 	redisConfig := GetConfigJson().RedisConfig
-
 	RedisClient = redis.NewClient(&redis.Options{
-		Addr:     redisConfig.Host,
-		Password: redisConfig.Password,
-		DB:       redisConfig.Db,
+		Addr:         redisConfig.Host,
+		Password:     redisConfig.Password,
+		DB:           redisConfig.Db,
+		MinIdleConns: 10,
 	})
 	_, err := RedisClient.Ping().Result()
 	if err != nil {
