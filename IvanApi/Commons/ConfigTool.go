@@ -8,8 +8,9 @@ import (
 )
 
 type ConfigJson struct {
-	ConnectionString string      `json:"connectionString"`
-	RedisConfig      RedisConfig `json:"redisConfig"`
+	ConnectionString   string      `json:"connectionString"`
+	RedisConfig        RedisConfig `json:"redisConfig"`
+	RabbitMqConnString string      `json:"rabbitMqConnString"`
 }
 
 type RedisConfig struct {

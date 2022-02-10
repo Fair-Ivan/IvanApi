@@ -20,5 +20,7 @@ func main() {
 	}
 	Commons.RedisInit()
 	Commons.GormInit()
+	Commons.RabbitMqInit()
+	go Commons.ConsumeMessage()
 	r.Run(":8081")
 }

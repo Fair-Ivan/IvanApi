@@ -20,6 +20,10 @@ func Router() *gin.Engine {
 			eg.POST("/broadcast", Apis.AddBroadCast)
 			eg.DELETE("/broadcast", Apis.RemoveBroadCast)
 		}
+		ag := v1.Group("/test")
+		{
+			ag.GET("", Apis.TestApi)
+		}
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r

@@ -153,4 +153,19 @@ paths:
       summary: 获取广播
       tags:
       - ops
+  /test:
+    get:
+      consumes:
+      - application/json
+      description: test
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试
+      tags:
+      - test
 swagger: "2.0"
