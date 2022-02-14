@@ -44,7 +44,7 @@ func PublishMessage(message string) {
 	err = channel.ExchangeDeclare(
 		"broadtest",
 		"fanout",
-		false,
+		true,
 		false,
 		false,
 		false,
@@ -80,7 +80,7 @@ func ConsumeMessage() {
 	err = channel.ExchangeDeclare(
 		"broadtest",
 		"fanout",
-		false,
+		true,
 		false,
 		false,
 		false,
@@ -94,9 +94,9 @@ func ConsumeMessage() {
 	// 创建队列
 	q, err := channel.QueueDeclare(
 		"broadtest", //随机生产队列名称
-		false,
-		false,
 		true,
+		false,
+		false,
 		false,
 		nil,
 	)

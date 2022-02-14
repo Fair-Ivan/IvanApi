@@ -54,6 +54,32 @@ info:
   title: IvanApi Swagger
   version: "1.0"
 paths:
+  /login:
+    get:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Model.ResponseResult'
+      summary: 登录
+      tags:
+      - login
   /ops/broadcast:
     delete:
       consumes:
@@ -158,6 +184,12 @@ paths:
       consumes:
       - application/json
       description: test
+      parameters:
+      - description: 验证头
+        in: header
+        name: Authorization
+        required: true
+        type: string
       produces:
       - application/json
       responses:

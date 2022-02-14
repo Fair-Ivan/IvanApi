@@ -10,6 +10,7 @@ import (
 // @Description test
 // @Tags test
 // @Accept json
+// @param Authorization header string true "验证头"
 // @Produce json
 // @Success 200 {string} TestApi
 // @Router /test [get]

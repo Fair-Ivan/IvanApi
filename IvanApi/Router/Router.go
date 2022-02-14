@@ -2,6 +2,7 @@ package Router
 
 import (
 	"IvanApi/Apis"
+	"IvanApi/Commons"
 	docs "IvanApi/docs"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -22,7 +23,11 @@ func Router() *gin.Engine {
 		}
 		ag := v1.Group("/test")
 		{
-			ag.GET("", Apis.TestApi)
+			ag.Use(Commons.JWTAuth()).GET("", Apis.TestApi)
+		}
+		sg := v1.Group("/login")
+		{
+			sg.GET("", Apis.Login)
 		}
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
