@@ -56,7 +56,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -82,7 +82,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                            "$ref": "#/definitions/model.BroadCastUpdateInput"
                         }
                     }
                 ],
@@ -90,7 +90,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -114,7 +114,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                            "$ref": "#/definitions/model.BroadCastUpdateInput"
                         }
                     }
                 ],
@@ -122,7 +122,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -152,7 +152,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -205,7 +205,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.PageResult"
+                            "$ref": "#/definitions/model.PageResult"
                         }
                     }
                 }
@@ -242,10 +242,33 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/test/second": {
+            "get": {
+                "description": "test2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "测试2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "Model.BroadCastUpdateInput": {
+        "model.BroadCastUpdateInput": {
             "type": "object",
             "properties": {
                 "broadcastPosition": {
@@ -280,7 +303,7 @@ var doc = `{
                 }
             }
         },
-        "Model.PageResult": {
+        "model.PageResult": {
             "type": "object",
             "properties": {
                 "pageIndex": {
@@ -300,7 +323,7 @@ var doc = `{
                 }
             }
         },
-        "Model.ResponseResult": {
+        "model.ResponseResult": {
             "type": "object",
             "properties": {
                 "code": {

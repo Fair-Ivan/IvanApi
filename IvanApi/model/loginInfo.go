@@ -1,4 +1,4 @@
-package Model
+package model
 
 type LoginInfo struct {
 	Id   string `form:"id" json:"id"`

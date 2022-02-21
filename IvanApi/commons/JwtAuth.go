@@ -1,4 +1,4 @@
-package Commons
+package commons
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ type JWT struct {
 // 初始化jwt对象
 func NewJWT() *JWT {
 	return &JWT{
-		[]byte(""),
+		[]byte("secretKey"),
 	}
 }
 
@@ -27,6 +27,7 @@ type CustomClaims struct {
 	jwt.StandardClaims
 }
 
+// jwt中间件
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// 通过http header中的token解析来认证
@@ -61,7 +62,6 @@ func JWTAuth() gin.HandlerFunc {
 
 		// 将解析后的有效载荷claims重新写入gin.Context引用对象中
 		c.Set("claims", claims)
-
 	}
 }
 

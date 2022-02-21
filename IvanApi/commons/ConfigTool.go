@@ -1,4 +1,4 @@
-package Commons
+package commons
 
 import (
 	"encoding/json"
@@ -11,6 +11,7 @@ type ConfigJson struct {
 	ConnectionString   string      `json:"connectionString"`
 	RedisConfig        RedisConfig `json:"redisConfig"`
 	RabbitMqConnString string      `json:"rabbitMqConnString"`
+	MongoDBConnString  string      `json:"MongoDBConnString"`
 }
 
 type RedisConfig struct {

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"IvanApi/Commons"
 	"IvanApi/Router"
+	"IvanApi/commons"
 	"runtime"
 )
 
@@ -14,13 +14,14 @@ import (
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	r := Router.Router()
-	err := Commons.InitConfigJson("app.json")
+	err := commons.InitConfigJson("app.json")
 	if err != nil {
 		panic(err)
 	}
-	Commons.RedisInit()
-	Commons.GormInit()
-	Commons.RabbitMqInit()
-	go Commons.ConsumeMessage()
+	commons.RedisInit()
+	commons.GormInit()
+	commons.RabbitMqInit()
+	commons.MongoInit()
+	go commons.ConsumeMessage()
 	r.Run(":8081")
 }

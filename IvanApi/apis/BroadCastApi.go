@@ -1,8 +1,8 @@
-package Apis
+package apis
 
 import (
-	"IvanApi/Commons"
-	"IvanApi/Model"
+	"IvanApi/commons"
+	"IvanApi/model"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -21,11 +21,11 @@ import (
 // @Param pageSize query int true "pageSize"
 // @Accept json
 // @Produce json
-// @Success 200 {object} Model.PageResult GetBroadCast
+// @Success 200 {object} model.PageResult GetBroadCast
 // @Router /ops/getbroadcast [get]
 func GetBroadCastList(g *gin.Context) {
-	db := Commons.Getdb()
-	val, err := Commons.RedisClient.Get("123456").Result()
+	db := commons.Getdb()
+	val, err := commons.RedisClient.Get("123456").Result()
 	if err != nil {
 		panic(err)
 	}
@@ -38,10 +38,10 @@ func GetBroadCastList(g *gin.Context) {
 	pageindex, _ := strconv.Atoi(pageIndex)
 	skipNum := (pageindex - 1) * pagesize
 	var total int
-	var broadcasts []Model.BroadCast
+	var broadcasts []model.BroadCast
 	result := db.Where("game_id = ? And game_version = ?", gameId, gameVersion).Offset(skipNum).Limit(pagesize).Find(&broadcasts).Count(&total)
 	if result.Error == nil {
-		p := Model.PageResult{
+		p := model.PageResult{
 			Total:     total,
 			PageSize:  pagesize,
 			PageIndex: pageindex,
@@ -58,13 +58,13 @@ func GetBroadCastList(g *gin.Context) {
 // @Schemes
 // @Description update
 // @Tags ops
-// @Param broadInput body Model.BroadCastUpdateInput true "入参"
+// @Param broadInput body model.BroadCastUpdateInput true "入参"
 // @Accept json
 // @Produce json
-// @Success 200 {object} Model.ResponseResult UpdateBroadCast
+// @Success 200 {object} model.ResponseResult UpdateBroadCast
 // @Router /ops/broadcast [put]
 func UpdateBroadCast(g *gin.Context) {
-	var broadInput Model.BroadCastUpdateInput
+	var broadInput model.BroadCastUpdateInput
 	if err := g.ShouldBind(&broadInput); err != nil {
 		g.JSON(
 			http.StatusBadRequest,
@@ -72,11 +72,11 @@ func UpdateBroadCast(g *gin.Context) {
 		)
 		return
 	}
-	db := Commons.Getdb()
-	count := db.Table("broadcastinfo").Where("id = ?", broadInput.Id).Update(Model.BroadCast{
+	db := commons.Getdb()
+	count := db.Table("broadcastinfo").Where("id = ?", broadInput.Id).Update(model.BroadCast{
 		BroadcastText: broadInput.BroadcastText,
 	}).RowsAffected
-	var response Model.ResponseResult
+	var response model.ResponseResult
 	if count > 0 {
 		response.Code = 0
 		response.Msg = "修改成功"
@@ -90,19 +90,19 @@ func UpdateBroadCast(g *gin.Context) {
 // @Schemes
 // @Description update
 // @Tags ops
-// @Param broadInput body Model.BroadCastUpdateInput true "信息"
+// @Param broadInput body model.BroadCastUpdateInput true "信息"
 // @Accept json
 // @Produce json
-// @Success 200 {object} Model.ResponseResult AddBroadCast
+// @Success 200 {object} model.ResponseResult AddBroadCast
 // @Router /ops/broadcast [post]
 func AddBroadCast(g *gin.Context) {
-	var broadInput Model.BroadCastUpdateInput
+	var broadInput model.BroadCastUpdateInput
 	if err := g.ShouldBind(&broadInput); err != nil {
 		g.JSON(http.StatusBadRequest, gin.H{"msg": err})
 		return
 	}
-	db := Commons.Getdb()
-	var broadCast Model.BroadCast
+	db := commons.Getdb()
+	var broadCast model.BroadCast
 	broadCast.IsDeleted = 0
 	broadCast.BroadcastText = broadInput.BroadcastText
 	broadCast.BroadcastPosition = broadInput.BroadcastPosition
@@ -114,7 +114,7 @@ func AddBroadCast(g *gin.Context) {
 	broadCast.GameVersion = broadInput.GameVersion
 	broadCast.WorldId = broadInput.WorldId
 	db.Table("broadcastinfo").Create(&broadCast)
-	var response Model.ResponseResult
+	var response model.ResponseResult
 	response.Code = 0
 	response.Msg = "修改成功"
 	response.Result = true
@@ -128,17 +128,17 @@ func AddBroadCast(g *gin.Context) {
 // @Param id query int true "Id"
 // @Accept json
 // @Produce json
-// @Success 200 {object} Model.ResponseResult RemoveBroadCast
+// @Success 200 {object} model.ResponseResult RemoveBroadCast
 // @Router /ops/broadcast [delete]
 func RemoveBroadCast(g *gin.Context) {
-	var deleteInput Model.BroadCastRemoveInput
+	var deleteInput model.BroadCastRemoveInput
 	if err := g.ShouldBind(&deleteInput); err != nil {
 		g.JSON(http.StatusOK, gin.H{"msg": err})
 		return
 	}
-	var response Model.ResponseResult
-	db := Commons.Getdb()
-	count := db.Table("broadcastinfo").Where("id = ?", deleteInput.Id).Update(Model.BroadCast{
+	var response model.ResponseResult
+	db := commons.Getdb()
+	count := db.Table("broadcastinfo").Where("id = ?", deleteInput.Id).Update(model.BroadCast{
 		IsDeleted: 1,
 	}).RowsAffected
 	if count > 0 {

@@ -41,7 +41,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -67,7 +67,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                            "$ref": "#/definitions/model.BroadCastUpdateInput"
                         }
                     }
                 ],
@@ -75,7 +75,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -99,7 +99,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                            "$ref": "#/definitions/model.BroadCastUpdateInput"
                         }
                     }
                 ],
@@ -107,7 +107,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -137,7 +137,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -190,7 +190,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.PageResult"
+                            "$ref": "#/definitions/model.PageResult"
                         }
                     }
                 }
@@ -227,10 +227,33 @@
                     }
                 }
             }
+        },
+        "/test/second": {
+            "get": {
+                "description": "test2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "测试2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
-        "Model.BroadCastUpdateInput": {
+        "model.BroadCastUpdateInput": {
             "type": "object",
             "properties": {
                 "broadcastPosition": {
@@ -265,7 +288,7 @@
                 }
             }
         },
-        "Model.PageResult": {
+        "model.PageResult": {
             "type": "object",
             "properties": {
                 "pageIndex": {
@@ -285,7 +308,7 @@
                 }
             }
         },
-        "Model.ResponseResult": {
+        "model.ResponseResult": {
             "type": "object",
             "properties": {
                 "code": {

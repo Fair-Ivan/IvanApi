@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  Model.BroadCastUpdateInput:
+  model.BroadCastUpdateInput:
     properties:
       broadcastPosition:
         type: string
@@ -23,7 +23,7 @@ definitions:
       worldId:
         type: string
     type: object
-  Model.PageResult:
+  model.PageResult:
     properties:
       pageIndex:
         description: 页签
@@ -37,7 +37,7 @@ definitions:
         description: 总条数
         type: integer
     type: object
-  Model.ResponseResult:
+  model.ResponseResult:
     properties:
       code:
         description: 状态
@@ -76,7 +76,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 登录
       tags:
       - login
@@ -97,7 +97,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 删除
       tags:
       - ops
@@ -111,14 +111,14 @@ paths:
         name: broadInput
         required: true
         schema:
-          $ref: '#/definitions/Model.BroadCastUpdateInput'
+          $ref: '#/definitions/model.BroadCastUpdateInput'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 新增
       tags:
       - ops
@@ -132,14 +132,14 @@ paths:
         name: broadInput
         required: true
         schema:
-          $ref: '#/definitions/Model.BroadCastUpdateInput'
+          $ref: '#/definitions/model.BroadCastUpdateInput'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 修改
       tags:
       - ops
@@ -175,7 +175,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.PageResult'
+            $ref: '#/definitions/model.PageResult'
       summary: 获取广播
       tags:
       - ops
@@ -198,6 +198,21 @@ paths:
           schema:
             type: string
       summary: 测试
+      tags:
+      - test
+  /test/second:
+    get:
+      consumes:
+      - application/json
+      description: test2
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试2
       tags:
       - test
 swagger: "2.0"
