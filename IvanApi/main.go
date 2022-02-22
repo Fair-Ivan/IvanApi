@@ -13,7 +13,7 @@ import (
 // @query.collection.format multi
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	r := Router.Router()
+	r := router.Router()
 	err := commons.InitConfigJson("app.json")
 	if err != nil {
 		panic(err)
