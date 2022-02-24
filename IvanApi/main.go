@@ -3,6 +3,7 @@ package main
 import (
 	"IvanApi/Router"
 	"IvanApi/commons"
+	"log"
 	"runtime"
 )
 
@@ -16,6 +17,7 @@ func main() {
 	r := router.Router()
 	err := commons.InitConfigJson("app.json")
 	if err != nil {
+		log.Printf(err.Error())
 		panic(err)
 	}
 	commons.RedisInit()

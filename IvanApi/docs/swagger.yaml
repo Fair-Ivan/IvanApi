@@ -215,4 +215,25 @@ paths:
       summary: 测试2
       tags:
       - test
+  /test/third:
+    get:
+      consumes:
+      - application/json
+      description: test3
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试3
+      tags:
+      - test
 swagger: "2.0"

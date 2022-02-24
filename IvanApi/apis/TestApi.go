@@ -52,6 +52,26 @@ func TestApi2(g *gin.Context) {
 	g.JSON(http.StatusOK, all)
 }
 
+// @Summary 测试3
+// @Schemes
+// @Description test3
+// @Tags test
+// @Param id query int true "id"
+// @Accept json
+// @Produce json
+// @Success 200 {string} TestApi3
+// @Router /test/third [get]
+func TestApi3(g *gin.Context) {
+	type input struct {
+		Id int `form:"id" json:"id"`
+	}
+	var param input
+	if err := g.ShouldBindQuery(&param); err != nil {
+		g.JSON(http.StatusOK, gin.H{"msg": err})
+		return
+	}
+}
+
 type Email struct {
 	Id      primitive.ObjectID `bson:"_id"`
 	EmailId string

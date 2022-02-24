@@ -24,6 +24,7 @@ func Router() *gin.Engine {
 		{
 			//ag.Use(commons.JWTAuth()).GET("", apis.TestApi)
 			ag.GET("/second", apis.TestApi2)
+			ag.GET("/third", apis.TestApi3)
 		}
 		sg := v1.Group("/login")
 		{
