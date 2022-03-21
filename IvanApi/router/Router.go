@@ -30,6 +30,10 @@ func Router() *gin.Engine {
 		{
 			sg.GET("", apis.Login)
 		}
+		fg := v1.Group("/oss")
+		{
+			fg.POST("callback", apis.OssCheckCallback)
+		}
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r

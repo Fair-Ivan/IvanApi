@@ -23,6 +23,13 @@ definitions:
       worldId:
         type: string
     type: object
+  model.OssForm:
+    properties:
+      checksum:
+        type: string
+      content:
+        type: string
+    type: object
   model.PageResult:
     properties:
       pageIndex:
@@ -179,6 +186,28 @@ paths:
       summary: 获取广播
       tags:
       - ops
+  /oss/callback:
+    post:
+      consumes:
+      - application/json
+      description: oss callback
+      parameters:
+      - description: input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.OssForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: oss callback
+      tags:
+      - oss
   /test:
     get:
       consumes:

@@ -12,12 +12,18 @@ type ConfigJson struct {
 	RedisConfig        RedisConfig `json:"redisConfig"`
 	RabbitMqConnString string      `json:"rabbitMqConnString"`
 	MongoDBConnString  string      `json:"MongoDBConnString"`
+	OssConfig          OssConfig   `json:"ossConfig"`
 }
 
 type RedisConfig struct {
 	Host     string `json:"host"`
 	Password string `json:"password"`
 	Db       int    `json:"db"`
+}
+
+type OssConfig struct {
+	Seed   string `json:"seed"`
+	UserId string `json:"userId"`
 }
 
 var (

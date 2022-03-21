@@ -211,6 +211,40 @@ var doc = `{
                 }
             }
         },
+        "/oss/callback": {
+            "post": {
+                "description": "oss callback",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "oss"
+                ],
+                "summary": "oss callback",
+                "parameters": [
+                    {
+                        "description": "input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.OssForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/test": {
             "get": {
                 "description": "test",
@@ -331,6 +365,17 @@ var doc = `{
                     "type": "string"
                 },
                 "worldId": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.OssForm": {
+            "type": "object",
+            "properties": {
+                "checksum": {
+                    "type": "string"
+                },
+                "content": {
                     "type": "string"
                 }
             }
