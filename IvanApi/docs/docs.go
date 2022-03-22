@@ -23,6 +23,45 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/login": {
+            "get": {
+                "description": "login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.ResponseResult"
+                        }
+                    }
+                }
+            }
+        },
         "/ops/broadcast": {
             "put": {
                 "description": "update",
@@ -43,7 +82,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                            "$ref": "#/definitions/model.BroadCastUpdateInput"
                         }
                     }
                 ],
@@ -51,7 +90,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -75,7 +114,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model.BroadCastUpdateInput"
+                            "$ref": "#/definitions/model.BroadCastUpdateInput"
                         }
                     }
                 ],
@@ -83,7 +122,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -113,7 +152,7 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.ResponseResult"
+                            "$ref": "#/definitions/model.ResponseResult"
                         }
                     }
                 }
@@ -166,7 +205,128 @@ var doc = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model.PageResult"
+                            "$ref": "#/definitions/model.PageResult"
+                        }
+                    }
+                }
+            }
+        },
+        "/oss/callback": {
+            "post": {
+                "description": "oss callback",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "oss"
+                ],
+                "summary": "oss callback",
+                "parameters": [
+                    {
+                        "description": "input",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.OssForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/test": {
+            "get": {
+                "description": "test",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "测试",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "验证头",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/test/second": {
+            "get": {
+                "description": "test2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "测试2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/test/third": {
+            "get": {
+                "description": "test3",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "测试3",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
                         }
                     }
                 }
@@ -174,7 +334,7 @@ var doc = `{
         }
     },
     "definitions": {
-        "Model.BroadCastUpdateInput": {
+        "model.BroadCastUpdateInput": {
             "type": "object",
             "properties": {
                 "broadcastPosition": {
@@ -209,7 +369,18 @@ var doc = `{
                 }
             }
         },
-        "Model.PageResult": {
+        "model.OssForm": {
+            "type": "object",
+            "properties": {
+                "checksum": {
+                    "type": "string"
+                },
+                "content": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.PageResult": {
             "type": "object",
             "properties": {
                 "pageIndex": {
@@ -229,7 +400,7 @@ var doc = `{
                 }
             }
         },
-        "Model.ResponseResult": {
+        "model.ResponseResult": {
             "type": "object",
             "properties": {
                 "code": {

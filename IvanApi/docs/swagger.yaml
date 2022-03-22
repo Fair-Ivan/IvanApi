@@ -1,6 +1,6 @@
 basePath: /api/v1
 definitions:
-  Model.BroadCastUpdateInput:
+  model.BroadCastUpdateInput:
     properties:
       broadcastPosition:
         type: string
@@ -23,7 +23,14 @@ definitions:
       worldId:
         type: string
     type: object
-  Model.PageResult:
+  model.OssForm:
+    properties:
+      checksum:
+        type: string
+      content:
+        type: string
+    type: object
+  model.PageResult:
     properties:
       pageIndex:
         description: 页签
@@ -37,7 +44,7 @@ definitions:
         description: 总条数
         type: integer
     type: object
-  Model.ResponseResult:
+  model.ResponseResult:
     properties:
       code:
         description: 状态
@@ -54,6 +61,32 @@ info:
   title: IvanApi Swagger
   version: "1.0"
 paths:
+  /login:
+    get:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: name
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ResponseResult'
+      summary: 登录
+      tags:
+      - login
   /ops/broadcast:
     delete:
       consumes:
@@ -71,7 +104,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 删除
       tags:
       - ops
@@ -85,14 +118,14 @@ paths:
         name: broadInput
         required: true
         schema:
-          $ref: '#/definitions/Model.BroadCastUpdateInput'
+          $ref: '#/definitions/model.BroadCastUpdateInput'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 新增
       tags:
       - ops
@@ -106,14 +139,14 @@ paths:
         name: broadInput
         required: true
         schema:
-          $ref: '#/definitions/Model.BroadCastUpdateInput'
+          $ref: '#/definitions/model.BroadCastUpdateInput'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.ResponseResult'
+            $ref: '#/definitions/model.ResponseResult'
       summary: 修改
       tags:
       - ops
@@ -149,8 +182,87 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model.PageResult'
+            $ref: '#/definitions/model.PageResult'
       summary: 获取广播
       tags:
       - ops
+  /oss/callback:
+    post:
+      consumes:
+      - application/json
+      description: oss callback
+      parameters:
+      - description: input
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/model.OssForm'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: oss callback
+      tags:
+      - oss
+  /test:
+    get:
+      consumes:
+      - application/json
+      description: test
+      parameters:
+      - description: 验证头
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试
+      tags:
+      - test
+  /test/second:
+    get:
+      consumes:
+      - application/json
+      description: test2
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试2
+      tags:
+      - test
+  /test/third:
+    get:
+      consumes:
+      - application/json
+      description: test3
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试3
+      tags:
+      - test
 swagger: "2.0"

@@ -1,4 +1,4 @@
-package Model
+package model
 
 // 响应数据
 type PageResult struct {
