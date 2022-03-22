@@ -6,10 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"log"
+	"net/http"
 )
 
 func Router() *gin.Engine {
-	r := gin.New()
+	r := gin.Default()
+	r.Use(Recover)
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	v1 := r.Group("/api/v1")
 	{
@@ -37,4 +40,25 @@ func Router() *gin.Engine {
 	}
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r
+}
+
+func Recover(c *gin.Context) {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Print("panic: %v\n", r)
+			c.JSON(http.StatusOK, gin.H{"msg": ErrorToString(r)})
+		}
+	}()
+
+	c.Next()
+}
+
+func ErrorToString(r interface{}) string {
+	switch v := r.(type) {
+	case error:
+		return v.Error()
+	default:
+		return r.(string)
+
+	}
 }

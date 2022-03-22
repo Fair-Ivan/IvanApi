@@ -70,6 +70,15 @@ func TestApi3(g *gin.Context) {
 		g.JSON(http.StatusOK, gin.H{"msg": err})
 		return
 	}
+
+	var list = [5]int{1, 2, 3, 4, 5}
+	for i := 1; i <= len(list); i++ {
+		item := list[i]
+		if item == 10 {
+			return
+		}
+	}
+	return
 }
 
 type Email struct {

@@ -42,6 +42,7 @@ func OssCheckCallback(g *gin.Context) {
 			gin.H{"msg": "签名错误"},
 		)
 		return
+
 	}
 	//  这里是收到回调之后的处理逻辑，随意编写
 
