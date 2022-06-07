@@ -20,6 +20,13 @@ func main() {
 		log.Printf(err.Error())
 		panic(err)
 	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			log.Print("Main panic: %v\n", r)
+		}
+	}()
+
 	commons.RedisInit()
 	commons.GormInit()
 	commons.RabbitMqInit()

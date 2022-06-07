@@ -244,7 +244,7 @@ paths:
       summary: 测试2
       tags:
       - test
-  /test/third:
+  /third:
     get:
       consumes:
       - application/json
@@ -263,6 +263,4 @@ paths:
           schema:
             type: string
       summary: 测试3
-      tags:
-      - test
 swagger: "2.0"

@@ -2,6 +2,7 @@ package router
 
 import (
 	"IvanApi/apis"
+	"IvanApi/commons"
 	docs "IvanApi/docs"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
@@ -24,10 +25,10 @@ func Router() *gin.Engine {
 			eg.DELETE("/broadcast", apis.RemoveBroadCast)
 		}
 		ag := v1.Group("/test")
+		ag.Use(commons.HystrixWrapper())
 		{
-			//ag.Use(commons.JWTAuth()).GET("", apis.TestApi)
+			ag.GET("", apis.TestApi)
 			ag.GET("/second", apis.TestApi2)
-			ag.GET("/third", apis.TestApi3)
 		}
 		sg := v1.Group("/login")
 		{
@@ -38,6 +39,7 @@ func Router() *gin.Engine {
 			fg.POST("callback", apis.OssCheckCallback)
 		}
 	}
+	v1.GET("/third", apis.TestApi3)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r
 }
@@ -49,7 +51,6 @@ func Recover(c *gin.Context) {
 			c.JSON(http.StatusOK, gin.H{"msg": ErrorToString(r)})
 		}
 	}()
-
 	c.Next()
 }
 
@@ -59,6 +60,5 @@ func ErrorToString(r interface{}) string {
 		return v.Error()
 	default:
 		return r.(string)
-
 	}
 }

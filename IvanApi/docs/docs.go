@@ -300,7 +300,7 @@ var doc = `{
                 }
             }
         },
-        "/test/third": {
+        "/third": {
             "get": {
                 "description": "test3",
                 "consumes": [
@@ -308,9 +308,6 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
-                ],
-                "tags": [
-                    "test"
                 ],
                 "summary": "测试3",
                 "parameters": [
