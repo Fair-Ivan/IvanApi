@@ -25,10 +25,11 @@ func Router() *gin.Engine {
 			eg.DELETE("/broadcast", apis.RemoveBroadCast)
 		}
 		ag := v1.Group("/test")
-		ag.Use(commons.HystrixWrapper())
+		ag.Use(commons.LimitHandler())
 		{
-			ag.GET("", apis.TestApi)
+			ag.GET("/", apis.TestApi)
 			ag.GET("/second", apis.TestApi2)
+			ag.GET("/third", apis.TestApi3)
 		}
 		sg := v1.Group("/login")
 		{
@@ -39,7 +40,6 @@ func Router() *gin.Engine {
 			fg.POST("callback", apis.OssCheckCallback)
 		}
 	}
-	v1.GET("/third", apis.TestApi3)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	return r
 }

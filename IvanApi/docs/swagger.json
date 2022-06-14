@@ -285,7 +285,7 @@
                 }
             }
         },
-        "/third": {
+        "/test/third": {
             "get": {
                 "description": "test3",
                 "consumes": [
@@ -293,6 +293,9 @@
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "test"
                 ],
                 "summary": "测试3",
                 "parameters": [

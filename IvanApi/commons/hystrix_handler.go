@@ -18,7 +18,7 @@ func HystrixWrapper() gin.HandlerFunc {
 			}
 			return nil
 		}, func(err error) error {
-			if err != nil {
+			if err == nil {
 				c.JSON(http.StatusServiceUnavailable, gin.H{
 					"msg": err.Error(),
 				})

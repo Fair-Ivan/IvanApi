@@ -22,7 +22,7 @@ import (
 // @Router /test [get]
 func TestApi(g *gin.Context) {
 	//commons.PublishMessage("发送消息")
-	g.JSON(http.StatusBadRequest, gin.H{
+	g.JSON(http.StatusOK, gin.H{
 		"msg": "发送消息",
 	})
 }
@@ -58,17 +58,18 @@ func TestApi2(g *gin.Context) {
 // @Schemes
 // @Description test3
 // @Param id query int true "id"
+// @Tags test
 // @Accept json
 // @Produce json
 // @Success 200 {string} TestApi3
-// @Router /third [get]
+// @Router /test/third [get]
 func TestApi3(g *gin.Context) {
 	type input struct {
 		Id int `form:"id" json:"id"`
 	}
 	var param input
 	if err := g.ShouldBindQuery(&param); err != nil {
-		g.JSON(http.StatusOK, gin.H{"msg": err})
+		g.JSON(http.StatusBadRequest, gin.H{"msg": "你好"})
 		return
 	}
 
@@ -79,6 +80,7 @@ func TestApi3(g *gin.Context) {
 	//		return
 	//	}
 	//}
+	g.JSON(http.StatusBadRequest, gin.H{"msg": "你好"})
 	return
 }
 
