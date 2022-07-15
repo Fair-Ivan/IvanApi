@@ -277,6 +277,29 @@ var doc = `{
                 }
             }
         },
+        "/test/fifth": {
+            "get": {
+                "description": "test4",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "test"
+                ],
+                "summary": "测试4",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/test/second": {
             "get": {
                 "description": "test2",

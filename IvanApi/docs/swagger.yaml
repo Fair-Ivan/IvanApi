@@ -229,6 +229,21 @@ paths:
       summary: 测试
       tags:
       - test
+  /test/fifth:
+    get:
+      consumes:
+      - application/json
+      description: test4
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 测试4
+      tags:
+      - test
   /test/second:
     get:
       consumes:

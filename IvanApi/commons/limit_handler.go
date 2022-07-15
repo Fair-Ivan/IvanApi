@@ -16,7 +16,7 @@ func LimitHandler() gin.HandlerFunc {
 			fmt.Println("获取令牌成功, 之前数量：", before, "之后数量：", b.Available())
 		} else {
 			fmt.Println("获取令牌失败")
-			c.JSON(http.StatusOK, gin.H{
+			c.JSON(http.StatusBadRequest, gin.H{
 				"status": -1,
 				"msg":    "点击过于频繁，请稍后重试",
 				"data":   nil,

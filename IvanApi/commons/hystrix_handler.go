@@ -27,3 +27,19 @@ func HystrixWrapper() gin.HandlerFunc {
 		})
 	}
 }
+
+func HystrixBreakWrapper(c *gin.Context) {
+	hystrix.Do("hystrixwrapper", func() error {
+		c.Next()
+		code := c.Writer.Status()
+		if code != http.StatusOK {
+			return errors.New(fmt.Sprintf("status code %d", code))
+		}
+		return nil
+	}, func(err error) error {
+		if err != nil {
+
+		}
+		return nil
+	})
+}

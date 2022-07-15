@@ -80,8 +80,20 @@ func TestApi3(g *gin.Context) {
 	//		return
 	//	}
 	//}
-	g.JSON(http.StatusBadRequest, gin.H{"msg": "你好"})
+	g.JSON(http.StatusOK, gin.H{"msg": "你好"})
 	return
+}
+
+// @Summary 测试4
+// @Schemes
+// @Description test4
+// @Tags test
+// @Accept json
+// @Produce json
+// @Success 200 {string} TestApi4
+// @Router /test/fifth [get]
+func TestApi4(g *gin.Context) {
+	panic("错误")
 }
 
 type Email struct {

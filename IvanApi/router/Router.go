@@ -30,6 +30,7 @@ func Router() *gin.Engine {
 			ag.GET("/", apis.TestApi)
 			ag.GET("/second", apis.TestApi2)
 			ag.GET("/third", apis.TestApi3)
+			ag.GET("/fifth", apis.TestApi4)
 		}
 		sg := v1.Group("/login")
 		{
