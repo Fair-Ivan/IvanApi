@@ -8,10 +8,19 @@ import (
 	"time"
 )
 
-func LimitHandler() gin.HandlerFunc {
+var buckets = make(map[string]*ratelimit.Bucket)
+
+func LimitHandler(duration time.Duration, capacity int64) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		route := c.Request.RequestURI
+		b, err := buckets[route]
+		if !err {
+			b = ratelimit.NewBucket(duration, capacity)
+			buckets[route] = b
+		}
 		before := b.Available()
 		tokenGet := b.TakeAvailable(1)
+		fmt.Println("route:", route)
 		if tokenGet != 0 {
 			fmt.Println("获取令牌成功, 之前数量：", before, "之后数量：", b.Available())
 		} else {
@@ -25,10 +34,4 @@ func LimitHandler() gin.HandlerFunc {
 			return
 		}
 	}
-}
-
-var b *ratelimit.Bucket
-
-func LimitInit(duration time.Duration, capacity int64) {
-	b = ratelimit.NewBucket(duration, capacity)
 }

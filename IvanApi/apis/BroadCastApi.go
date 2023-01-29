@@ -25,11 +25,11 @@ import (
 // @Router /ops/getbroadcast [get]
 func GetBroadCastList(g *gin.Context) {
 	db := commons.Getdb()
-	val, err := commons.RedisClient.Get("123456").Result()
+	/*val, err := commons.RedisClient.Get("123456").Result()
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println("key", val)
+	fmt.Println("key", val)*/
 	var gameId = g.Query("gameId")
 	var gameVersion = g.Query("gameVersion")
 	var pageIndex = g.Query("pageIndex")
@@ -39,7 +39,7 @@ func GetBroadCastList(g *gin.Context) {
 	skipNum := (pageindex - 1) * pagesize
 	var total int
 	var broadcasts []model.BroadCast
-	result := db.Where("game_id = ? And game_version = ?", gameId, gameVersion).Offset(skipNum).Limit(pagesize).Find(&broadcasts).Count(&total)
+	result := db.Where("game_id = ? And game_version = ?", gameId, gameVersion).Order("id desc").Offset(skipNum).Limit(pagesize).Find(&broadcasts).Count(&total)
 	if result.Error == nil {
 		p := model.PageResult{
 			Total:     total,

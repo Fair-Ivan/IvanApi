@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"net/http"
+	"time"
 )
 
 // @Summary 测试
@@ -93,7 +94,9 @@ func TestApi3(g *gin.Context) {
 // @Success 200 {string} TestApi4
 // @Router /test/fifth [get]
 func TestApi4(g *gin.Context) {
-	panic("错误")
+	if time.Now().Second() > 30 {
+		panic("错误")
+	}
 }
 
 type Email struct {

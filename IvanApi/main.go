@@ -40,7 +40,6 @@ func main() {
 	commons.GormInit()
 	commons.RabbitMqInit()
 	commons.MongoInit()
-	commons.LimitInit(1*time.Millisecond, 10)
 	go commons.ConsumeMessage()
 	r.Run(":8081")
 

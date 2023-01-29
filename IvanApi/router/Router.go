@@ -9,6 +9,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
+	"time"
 )
 
 func Router() *gin.Engine {
@@ -25,7 +26,7 @@ func Router() *gin.Engine {
 			eg.DELETE("/broadcast", apis.RemoveBroadCast)
 		}
 		ag := v1.Group("/test")
-		ag.Use(commons.LimitHandler())
+		ag.Use(commons.LimitHandler(time.Second*1, 10))
 		{
 			ag.GET("/", apis.TestApi)
 			ag.GET("/second", apis.TestApi2)
