@@ -27,7 +27,7 @@ func (BroadCast) TableName() string {
 }
 
 type BroadCastUpdateInput struct {
-	Id                int64     `form:"id`
+	Id                int64     `form:"id"`
 	GameId            int       `form:"gameId"`
 	GameVersion       string    `form:"gameVersion"`
 	PartnerId         string    `form:"partnerId"`
